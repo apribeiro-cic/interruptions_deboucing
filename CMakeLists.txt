@@ -44,9 +44,15 @@ pico_set_program_version(interruptions_debouncing "0.1")
 pico_enable_stdio_uart(interruptions_debouncing 1)
 pico_enable_stdio_usb(interruptions_debouncing 1)
 
+pico_generate_pio_header(interruptions_debouncing ${CMAKE_CURRENT_LIST_DIR}/interruptions_debouncing.pio)
+
+target_sources(interruptions_debouncing PRIVATE interruptions_debouncing.c)
+
 # Add the standard library to the build
 target_link_libraries(interruptions_debouncing
-        pico_stdlib)
+        pico_stdlib
+        hardware_pio
+        )
 
 # Add the standard include files to the build
 target_include_directories(interruptions_debouncing PRIVATE
